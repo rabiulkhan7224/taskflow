@@ -20,17 +20,7 @@ import {
 } from "./ui/select";
 import { Progress } from "./ui/progress";
 import { Badge } from "./ui/badge";
-
-function PriorityBadge({ priority }: { priority: Priority }) {
-  return (
-    <Badge variant="outline" className="gap-1.5 capitalize">
-      <span
-        className={`size-1.5 rounded-full bg-current ${priority === "high" ? "text-destructive" : priority === "medium" ? "text-amber-600" : "text-muted-foreground"}`}
-      />
-      {priority}
-    </Badge>
-  );
-}
+import { PriorityBadge } from "./PriorityBadge";
 
 const DetailTask = ({
   task,
@@ -43,33 +33,72 @@ const DetailTask = ({
 }) => {
   const [editing, setEditing] = useState(false);
   const [subtask, setSubtask] = useState("");
+
   if (!task) return null;
   const completed = task.subtasks.filter((item) => item.completed).length;
   const percent = task.subtasks.length
     ? Math.round((completed / task.subtasks.length) * 100)
     : task.progress;
+  //   const addSubtask = () => {
+  //     const title = subtask.trim();
+  //     if (!title) return;
+
+  //     onUpdate(task.id, {
+  //       subtasks: [
+  //         ...task.subtasks,
+  //         { id: `s${Date.now()}`, title, completed: false },
+  //       ],
+  //       progress: percent,
+  //     });
+  //     setSubtask("");
+  //   };
+
   const addSubtask = () => {
     const title = subtask.trim();
     if (!title) return;
+
+    const newSubtasks = [
+      ...task.subtasks,
+      { id: `s${Date.now()}`, title, completed: false },
+    ];
+
+    const completedCount = newSubtasks.filter((item) => item.completed).length;
+    const newPercent = Math.round((completedCount / newSubtasks.length) * 100);
+
     onUpdate(task.id, {
-      subtasks: [
-        ...task.subtasks,
-        { id: `s${Date.now()}`, title, completed: false },
-      ],
-      progress: percent,
+      subtasks: newSubtasks,
+      progress: newPercent,
     });
+
     setSubtask("");
   };
+
+  //   const toggle = (id: string) => {
+  //     const subtasks = task.subtasks.map((item) =>
+  //       item.id === id ? { ...item, completed: !item.completed } : item,
+  //     );
+  //     const done = subtasks.filter((item) => item.completed).length;
+  //     onUpdate(task.id, {
+  //       subtasks,
+  //       progress: subtasks.length
+  //         ? Math.round((done / subtasks.length) * 100)
+  //         : task.progress,
+  //     });
+  //   };
+
   const toggle = (id: string) => {
     const subtasks = task.subtasks.map((item) =>
       item.id === id ? { ...item, completed: !item.completed } : item,
     );
+
     const done = subtasks.filter((item) => item.completed).length;
+    const newPercent = subtasks.length
+      ? Math.round((done / subtasks.length) * 100)
+      : task.progress;
+
     onUpdate(task.id, {
       subtasks,
-      progress: subtasks.length
-        ? Math.round((done / subtasks.length) * 100)
-        : task.progress,
+      progress: newPercent,
     });
   };
   const updateStatus = (status: Status) =>
