@@ -1,36 +1,52 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TaskFlow - Lightweight Project Management App
 
-## Getting Started
+TaskFlow is a clean, responsive, and intuitive project management tool built for small teams, agency leads, and freelancers to track work and stay organized without the bloated complexity of tools like Jira.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 💡 Step 01: Thinking & Product Design Logic
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### 1. User & Top 3 Goals
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Target Users:** Small team leads, agency project managers, and freelancers managing client work (mixed technical & non-technical users).
+- **Top 3 Goals:**
+  1. **At-a-Glance Progress Tracking:** Quickly view active project statuses and task distributions.
+  2. **Fast Task Creation & Assignment:** Instantly create tasks, set deadlines, and assign them to team members without navigating deep menus.
+  3. **Overdue & Priority Awareness:** Immediately identify critical, overdue tasks that need urgent attention.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### 2. First Screen Priority (After Login)
 
-## Learn More
+- **Priority Feature:** A high-level **Summary Dashboard** displaying core metrics (`Total Tasks`, `Overdue Count`, `Active Projects`) and an **Urgent / Due Soon** task list.
+- **Reasoning:** Users log in primarily to figure out _what needs immediate action today_. Placing top-level stats and impending deadlines front and center saves cognitive load and eliminates unnecessary navigation.
 
-To learn more about Next.js, take a look at the following resources:
+### 3. Key User Flow: Task Creation
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+1. **Entry:** User enters the application and clicks the global **"+ Add Task"** button (accessible via top bar or board header).
+2. **Modal / Sheet trigger:** A streamlined Slide-over Sheet (or Modal) appears containing essential input fields.
+3. **Data Input:** User enters Task Title, Description, selects Project, Assignee, Priority, Status, and Due Date.
+4. **Submission:** Clicking **"Add Task"** validates inputs via Zod, updates the Zustand global state, closes the sheet, and instantly renders the newly created task card on the **Kanban Task Board**.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 4. Key Assumptions
 
-## Deploy on Vercel
+- **Single-Team Environment:** Designed for a single-team structure with support for multiple projects and assignees.
+- **Client-Side Persistence:** Operating without a live backend; state management is handled using Zustand with local storage persistence to preserve state across page reloads.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🛠️ Tech Stack & Architecture
+
+- **Framework:** Next.js (App Router)
+- **Styling:** Tailwind CSS + shadcn/ui
+- **State Management:** Zustand (with LocalStorage persistence)
+- **Forms & Validation:** React Hook Form + Zod
+- **Drag & Drop:** `@dnd-kit/core` & `@dnd-kit/sortable`
+- **Icons:** Lucide React
+
+---
+
+## 🚀 How to Run Locally
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/rabiulkhan7224/taskflow.git
+   ```
