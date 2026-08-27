@@ -121,7 +121,7 @@ const TaskflowBoard = () => {
           </div>
 
           {/* Priority Filter */}
-          <div className="w-[140px]">
+          <div className="w-35">
             <Select
               value={priorityFilter}
               onValueChange={(value) => setPriorityFilter(value ?? "all")}
