@@ -1,4 +1,4 @@
-import { Priority } from "@/lib/task-store";
+import { Priority } from "@/types/task";
 import { Badge } from "./ui/badge";
 
 const PriorityBadge = ({ priority }: { priority: Priority }) => {
