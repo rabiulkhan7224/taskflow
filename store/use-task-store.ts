@@ -77,7 +77,7 @@ export const useTaskStore = create<TaskStore>()(
         });
       },
 
-      updateTask: (id, patch) =>
+      updateTask: (id, patch) => {
         set((state) => {
           const updatedTasks = state.tasks.map((task) =>
             task.id === id ? { ...task, ...patch } : task,
@@ -91,7 +91,13 @@ export const useTaskStore = create<TaskStore>()(
                 ? { ...state.selectedTask, ...patch }
                 : state.selectedTask,
           };
-        }),
+        });
+
+        toast.add({
+          type: "success",
+          description: "Task Updated",
+        });
+      },
 
       toggleSubtask: (taskId, subtaskId) =>
         set((state) => {
