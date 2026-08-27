@@ -2,7 +2,7 @@
 
 import { useDroppable } from "@dnd-kit/core";
 import { Badge } from "@/components/ui/badge";
-import { type Status, type Task } from "@/lib/task-store";
+import { Status, Task } from "@/types/task";
 import TaskCard from "./taskCard";
 
 interface ColumnProps {

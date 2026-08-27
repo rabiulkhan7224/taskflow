@@ -1,4 +1,3 @@
-import { Status, Task } from "@/lib/task-store";
 import { useDraggable } from "@dnd-kit/react";
 import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
@@ -11,6 +10,7 @@ import {
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { PriorityBadge } from "./PriorityBadge";
+import { Status, Task } from "@/types/task";
 
 const people: Record<string, { name: string; image?: string }> = {
   AR: {
@@ -51,7 +51,7 @@ const TaskCard = ({
     <Card
       ref={drag.ref}
       onClick={() => onOpen(task)}
-      className={`cursor-grab transition-shadow hover:shadow-md active:cursor-grabbing ${drag.isDragging ? "opacity-40" : ""}`}
+      className={`cursor-grab transition-shadow hover:shadow-md  ${drag.isDragging ? "opacity-40" : ""}`}
     >
       <CardContent className="flex flex-col gap-4 p-4">
         <div className="flex items-start justify-between gap-3">
@@ -79,7 +79,7 @@ const TaskCard = ({
               {task.dueDate}
             </span>
           </div>
-          <People ids={task.assignees} />
+          {/* <People ids={task.assignees} /> */}
         </div>
       </CardContent>
     </Card>

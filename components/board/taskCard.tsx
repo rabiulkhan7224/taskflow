@@ -4,10 +4,11 @@ import { useDraggable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Progress } from "@/components/ui/progress";
 import { MessageSquare, Paperclip, CheckSquare } from "lucide-react";
-import { useTaskStore, type Task } from "@/lib/task-store";
+import { useTaskStore } from "@/store/use-task-store";
+import { Task } from "@/types/task";
 
 const priorityColors = {
   high: "bg-red-500/10 text-red-600 border-red-200",
@@ -72,11 +73,15 @@ export default function TaskCard({ task }: { task: Task }) {
 
         {/* Footer */}
         <div className="flex items-center justify-between pt-2 border-t text-muted-foreground text-xs">
-          <div className="flex -space-x-1.5">
-            {task.assignees.map((initials, idx) => (
-              <Avatar key={idx} className="h-6 w-6 border-2 border-background">
-                <AvatarFallback className="text-[10px] font-medium bg-muted">
-                  {initials}
+          <div className="flex -space-x-2">
+            {task.assignees.map((user) => (
+              <Avatar
+                key={user.id}
+                className="h-6 w-6 border-2 border-background"
+              >
+                <AvatarImage src={user.avatar} alt={user.name} />
+                <AvatarFallback className="text-[10px]">
+                  {user.name.slice(0, 2).toUpperCase()}
                 </AvatarFallback>
               </Avatar>
             ))}

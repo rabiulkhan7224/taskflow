@@ -19,7 +19,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useTaskStore, type Priority, type Status } from "@/lib/task-store";
+import { useTaskStore } from "@/store/use-task-store";
+import { Priority, Status } from "@/types/task";
 
 export default function AddTaskSheet() {
   const { isAddSheetOpen, setAddSheetOpen, addTask } = useTaskStore();

@@ -11,12 +11,13 @@ import {
 } from "@dnd-kit/core";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useTaskStore, type Status } from "@/lib/task-store";
+import { useTaskStore } from "@/store/use-task-store";
 import { Plus, Search } from "lucide-react";
 
 import DetailTask from "./detailTask";
 import DroppableColumn from "./board/droppableColumn";
 import AddTaskSheet from "./board/addTaskSheet";
+import { Status } from "@/types/task";
 
 const COLUMNS: { id: Status; title: string }[] = [
   { id: "todo", title: "To Do" },
