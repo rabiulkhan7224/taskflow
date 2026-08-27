@@ -9,7 +9,7 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Progress } from "@/components/ui/progress";
-import { useTaskStore } from "@/lib/task-store";
+import { useTaskStore } from "@/store/use-task-store";
 
 export default function DetailTask() {
   const { selectedTask, isDetailSheetOpen, closeDetailSheet, toggleSubtask } =

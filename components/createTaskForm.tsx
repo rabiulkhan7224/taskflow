@@ -23,6 +23,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useTaskStore } from "@/store/use-task-store";
 import { Priority, Status } from "@/types/task";
 import { usersData } from "@/lib/data/users";
+import { Label } from "./ui/label";
 
 interface AddTaskSheetProps {
   open: boolean;
@@ -36,6 +37,7 @@ interface FormInputs {
   priority: Priority;
   dueDate: string;
   assigneeId: string;
+  project: string;
 }
 
 export function AddTaskSheet({ open, onOpenChange }: AddTaskSheetProps) {
@@ -54,6 +56,7 @@ export function AddTaskSheet({ open, onOpenChange }: AddTaskSheetProps) {
       status: "todo",
       priority: "medium",
       dueDate: "",
+      project: "Website Redesign",
       assigneeId: String(usersData[0].id),
     },
   });
@@ -88,7 +91,7 @@ export function AddTaskSheet({ open, onOpenChange }: AddTaskSheetProps) {
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>
-      <SheetContent side="right" className="w-100 sm:w-135">
+      <SheetContent side="right" className="w-135 sm:w-135">
         <SheetHeader>
           <SheetTitle>Add New Task</SheetTitle>
           <SheetDescription>
@@ -96,7 +99,7 @@ export function AddTaskSheet({ open, onOpenChange }: AddTaskSheetProps) {
           </SheetDescription>
         </SheetHeader>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 py-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 py-4 px-4">
           {/* Title */}
           <div>
             <label className="text-sm font-medium">Title *</label>
@@ -122,9 +125,24 @@ export function AddTaskSheet({ open, onOpenChange }: AddTaskSheetProps) {
             />
           </div>
 
+          {/* Title */}
+          <div>
+            <Label>Project name *</Label>
+            <Input
+              {...register("title", { required: "project is required" })}
+              placeholder="write your project name"
+              className="mt-1"
+            />
+            {errors.project && (
+              <span className="text-xs text-red-500">
+                {errors.project.message}
+              </span>
+            )}
+          </div>
+
           {/* Status & Priority */}
           <div className="grid grid-cols-2 gap-4">
-            <div>
+            <div className="flex items-center gap-2">
               <label className="text-sm font-medium">Status</label>
               <Controller
                 name="status"
@@ -147,7 +165,7 @@ export function AddTaskSheet({ open, onOpenChange }: AddTaskSheetProps) {
               />
             </div>
 
-            <div>
+            <div className="flex items-center gap-2">
               <label className="text-sm font-medium">Priority</label>
               <Controller
                 name="priority"
@@ -173,7 +191,7 @@ export function AddTaskSheet({ open, onOpenChange }: AddTaskSheetProps) {
 
           {/* Assignee & Due Date */}
           <div className="grid grid-cols-2 gap-4">
-            <div>
+            <div className="flex items-center gap-2">
               <label className="text-sm font-medium">Assignee</label>
               <Controller
                 name="assigneeId"

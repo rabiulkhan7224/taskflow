@@ -14,7 +14,15 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import { Calendar, Home, Inbox, Kanban, Search, Settings } from "lucide-react";
+import {
+  Calendar,
+  Home,
+  Inbox,
+  Kanban,
+  Search,
+  Settings,
+  Sparkles,
+} from "lucide-react";
 import Link from "next/link";
 
 const navItems = [
@@ -29,7 +37,20 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
       <SidebarHeader>
-        <SearchForm />
+        <div className="flex items-center gap-8">
+          <Link
+            href="/"
+            className="flex items-center gap-2.5"
+            aria-label="TaskFlow home"
+          >
+            <span className="flex size-9 items-center justify-center rounded-xl bg-primary text-primary-foreground">
+              <Sparkles className="size-4" />
+            </span>
+            <span className="text-lg font-semibold tracking-tight">
+              TaskFlow
+            </span>
+          </Link>
+        </div>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>

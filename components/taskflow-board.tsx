@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import {
   DndContext,
   DragEndEvent,
@@ -16,7 +16,7 @@ import { Plus, Search } from "lucide-react";
 
 import DetailTask from "./detailTask";
 import DroppableColumn from "./board/droppableColumn";
-import AddTaskSheet from "./board/addTaskSheet";
+import { AddTaskSheet } from "@/components/createTaskForm";
 import { Status } from "@/types/task";
 
 const COLUMNS: { id: Status; title: string }[] = [
@@ -26,6 +26,8 @@ const COLUMNS: { id: Status; title: string }[] = [
 ];
 
 const TaskflowBoard = () => {
+  const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
+
   const {
     tasks,
     searchQuery,
@@ -66,7 +68,7 @@ const TaskflowBoard = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight">Kanban Board</h1>
+          <h1 className="text-2xl font-bold tracking-tight">TaskFlow Board</h1>
           <p className="text-sm text-muted-foreground">
             Drag tasks between columns to update status.
           </p>
@@ -83,7 +85,7 @@ const TaskflowBoard = () => {
             />
           </div>
 
-          <Button onClick={() => setAddSheetOpen(true)} className="gap-1">
+          <Button onClick={() => setIsAddTaskOpen(true)} className="gap-1">
             <Plus className="h-4 w-4" />
             <span>Add Task</span>
           </Button>
@@ -95,6 +97,7 @@ const TaskflowBoard = () => {
         sensors={sensors}
         collisionDetection={closestCorners}
         onDragEnd={handleDragEnd}
+        id="taskflow-dnd-context"
       >
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {COLUMNS.map((column) => (
@@ -108,8 +111,8 @@ const TaskflowBoard = () => {
         </div>
       </DndContext>
 
-      {/* Modals / Sheets */}
-      <AddTaskSheet />
+      {/* Sheets */}
+      <AddTaskSheet open={isAddTaskOpen} onOpenChange={setIsAddTaskOpen} />
       {/* <DetailTask /> */}
       <DetailTask
         task={task}

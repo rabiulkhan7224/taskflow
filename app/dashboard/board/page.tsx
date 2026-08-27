@@ -1,3 +1,4 @@
+"use client";
 import TaskflowBoard from "@/components/taskflow-board";
 
 const BoardPage = () => {
