@@ -1,42 +1,26 @@
 "use client";
 
-import { useState } from "react";
-import Link from "next/link";
-import {
-  ArrowUpRight,
-  Bell,
-  CalendarDays,
-  CheckCircle2,
-  CircleDashed,
-  FolderKanban,
-  LayoutDashboard,
-  LogOut,
-  MoreHorizontal,
-  Plus,
-  Search,
-  Settings2,
-  Sparkles,
-  TrendingUp,
-  User,
-  Users,
-} from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
-import { useTaskStore } from "@/store/use-task-store";
-import { AddTaskSheet } from "./createTaskForm";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 import { useAuthStore } from "@/store/use-auth-store";
+import { useTaskStore } from "@/store/use-task-store";
+import {
+  ArrowUpRight,
+  CalendarDays,
+  CheckCircle2,
+  CircleDashed,
+  FolderKanban,
+  MoreHorizontal,
+  Plus,
+  Settings2,
+  TrendingUp,
+} from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
+import { AddTaskSheet } from "./createTaskForm";
 const currentUser = {
   name: "Alex Rivera",
   email: "alex@agency.com",

@@ -77,11 +77,10 @@ export function AddTaskSheet({ open, onOpenChange }: AddTaskSheetProps) {
     addTask({
       title: data.title,
       description: data.description || "",
-      project: "General",
+      project: data.project, // FIXED: Now uses user input instead of "General"
       status: data.status,
       priority: data.priority,
       dueDate: formattedDate,
-
       assignees: [selectedUser],
     });
 
@@ -99,7 +98,7 @@ export function AddTaskSheet({ open, onOpenChange }: AddTaskSheetProps) {
           </SheetDescription>
         </SheetHeader>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4  px-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 px-4">
           {/* Title */}
           <div>
             <label className="text-sm font-medium">Title *</label>
@@ -125,12 +124,12 @@ export function AddTaskSheet({ open, onOpenChange }: AddTaskSheetProps) {
             />
           </div>
 
-          {/* Title */}
+          {/* Project Name */}
           <div>
             <Label>Project name *</Label>
             <Input
-              {...register("title", { required: "project is required" })}
-              placeholder="write your project name"
+              {...register("project", { required: "Project name is required" })} // FIXED: Changed "title" to "project"
+              placeholder="Write your project name"
               className="mt-1"
             />
             {errors.project && (
@@ -150,7 +149,7 @@ export function AddTaskSheet({ open, onOpenChange }: AddTaskSheetProps) {
                 render={({ field }) => (
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    value={field.value ?? ""}
                   >
                     <SelectTrigger className="mt-1">
                       <SelectValue placeholder="Select status" />
@@ -173,7 +172,7 @@ export function AddTaskSheet({ open, onOpenChange }: AddTaskSheetProps) {
                 render={({ field }) => (
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    value={field.value ?? ""} // FIXED: Controlled value
                   >
                     <SelectTrigger className="mt-1">
                       <SelectValue placeholder="Select priority" />
@@ -199,7 +198,7 @@ export function AddTaskSheet({ open, onOpenChange }: AddTaskSheetProps) {
                 render={({ field }) => (
                   <Select
                     onValueChange={field.onChange}
-                    defaultValue={field.value}
+                    value={field.value ?? ""} // FIXED: Controlled value
                   >
                     <SelectTrigger className="mt-1">
                       <SelectValue placeholder="Select assignee" />

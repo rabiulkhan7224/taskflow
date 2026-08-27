@@ -1,5 +1,6 @@
 "use client";
 
+import { toast } from "@/components/ui/toast";
 import { initialTasks } from "@/lib/data/tasks";
 import { Status, Task } from "@/types/task";
 import { create } from "zustand";
@@ -56,7 +57,7 @@ export const useTaskStore = create<TaskStore>()(
               : task,
           ),
         })),
-      addTask: (task) =>
+      addTask: (task) => {
         set((state) => ({
           tasks: [
             ...state.tasks,
@@ -69,7 +70,12 @@ export const useTaskStore = create<TaskStore>()(
               subtasks: [],
             },
           ],
-        })),
+        }));
+        toast.add({
+          type: "success",
+          description: "Task Created",
+        });
+      },
 
       updateTask: (id, patch) =>
         set((state) => {

@@ -1,7 +1,5 @@
 import * as React from "react";
 
-import { SearchForm } from "@/components/search-form";
-import { VersionSwitcher } from "@/components/version-switcher";
 import {
   Sidebar,
   SidebarContent,
@@ -14,16 +12,7 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from "@/components/ui/sidebar";
-import {
-  Calendar,
-  Home,
-  Inbox,
-  Kanban,
-  LayoutDashboard,
-  Search,
-  Settings,
-  Sparkles,
-} from "lucide-react";
+import { Kanban, LayoutDashboard, Settings, Sparkles } from "lucide-react";
 import Link from "next/link";
 
 const navItems = [

@@ -1,18 +1,7 @@
 "use client";
 
-import { useMemo, useState } from "react";
-import {
-  DndContext,
-  DragEndEvent,
-  closestCorners,
-  PointerSensor,
-  useSensor,
-  useSensors,
-} from "@dnd-kit/core";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useTaskStore } from "@/store/use-task-store";
-import { Filter, Plus, RotateCcw, Search } from "lucide-react";
 import {
   Select,
   SelectContent,
@@ -20,11 +9,22 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useTaskStore } from "@/store/use-task-store";
+import {
+  closestCorners,
+  DndContext,
+  DragEndEvent,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import { Filter, Plus, RotateCcw, Search } from "lucide-react";
+import { useMemo, useState } from "react";
 
-import DetailTask from "./detailTask";
-import DroppableColumn from "./board/droppableColumn";
 import { AddTaskSheet } from "@/components/createTaskForm";
-import { Priority, Status } from "@/types/task";
+import { Status } from "@/types/task";
+import DroppableColumn from "./board/droppableColumn";
+import DetailTask from "./detailTask";
 
 const COLUMNS: { id: Status; title: string }[] = [
   { id: "todo", title: "To Do" },
