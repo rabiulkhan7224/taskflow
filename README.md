@@ -25,6 +25,8 @@ TaskFlow is a clean, responsive, and intuitive project management tool built for
 ## ✨ Implemented Features
 
 - 📋 **Interactive Kanban Board:** Drag-and-drop tasks seamlessly between columns (`To Do`, `In Progress`, `Done`) powered by `@dnd-kit`.
+- ☑️ **Subtask Management & Checklist:** Create, toggle, individual subtasks within any task view.
+- 📊 **Dynamic Task Progress:** Real-time percentage indicator and progress bar displaying completed subtasks (`X / Y` finished).
 - 📊 **Metrics Dashboard:** Real-time key performance indicators tracking progress, priority distributions, and overdue status.
 - ⚡ **Streamlined Task Creation:** Slide-over sheet form built with `react-hook-form` and `zod` validation, handling assignees, due dates, and project tags.
 - 🔍 **Filtering & Search:** Real-time search by task title along with select-based filter controls for priority and project tags.
