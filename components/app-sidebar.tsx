@@ -19,6 +19,7 @@ import {
   Home,
   Inbox,
   Kanban,
+  LayoutDashboard,
   Search,
   Settings,
   Sparkles,
@@ -26,12 +27,22 @@ import {
 import Link from "next/link";
 
 const navItems = [
-  { title: "Home", url: "#", icon: Home },
-  { title: "Board", url: "#", icon: Kanban },
-  { title: "Inbox", url: "#", icon: Inbox },
-  { title: "Calendar", url: "#", icon: Calendar },
-  { title: "Search", url: "#", icon: Search },
-  { title: "Settings", url: "#", icon: Settings },
+  {
+    title: "Dashboard",
+    url: "/dashboard",
+    icon: LayoutDashboard,
+  },
+  {
+    title: "Board",
+    url: "/dashboard/board",
+    icon: Kanban,
+  },
+
+  {
+    title: "Settings",
+    url: "#",
+    icon: Settings,
+  },
 ];
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
@@ -62,7 +73,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <SidebarMenuButton tooltip={item.title}>
                     <Link
                       className="
-                    flex items-center justify-between
+                    flex items-center justify-between gap-1
                     "
                       href={item.url}
                     >

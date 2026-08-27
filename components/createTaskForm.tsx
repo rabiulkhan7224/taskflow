@@ -99,7 +99,7 @@ export function AddTaskSheet({ open, onOpenChange }: AddTaskSheetProps) {
           </SheetDescription>
         </SheetHeader>
 
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4 py-4 px-4">
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4  px-4">
           {/* Title */}
           <div>
             <label className="text-sm font-medium">Title *</label>

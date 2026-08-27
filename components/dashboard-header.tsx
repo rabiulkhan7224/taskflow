@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { Bell, LogOut, Plus, Search, Sparkles, User } from "lucide-react";
 
 import { SidebarTrigger } from "@/components/ui/sidebar";
@@ -22,8 +23,14 @@ import { useAuthStore } from "@/store/use-auth-store";
 import { AddTaskSheet } from "@/components/createTaskForm";
 
 export function DashboardHeader() {
+  const router = useRouter();
   const { user, logout } = useAuthStore();
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
+
+  const handleLogout = () => {
+    logout();
+    router.replace("/login");
+  };
 
   return (
     <>
@@ -40,18 +47,6 @@ export function DashboardHeader() {
             </span>
             <span className="hidden sm:inline-block">TaskFlow</span>
           </Link>
-        </div>
-
-        {/* Center Section: Search Bar */}
-        <div className="hidden max-w-md flex-1 md:flex">
-          <div className="relative w-full">
-            <Search className="absolute left-2.5 top-2.5 size-4 text-muted-foreground" />
-            <Input
-              type="search"
-              placeholder="Search tasks, projects..."
-              className="w-full bg-muted/50 pl-9 md:w-[300px] lg:w-[400px]"
-            />
-          </div>
         </div>
 
         {/* Right Section: Actions & User Dropdown */}
@@ -88,26 +83,33 @@ export function DashboardHeader() {
                 </Avatar>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56" align="end">
-                <DropdownMenuLabel className="font-normal">
-                  <div className="flex flex-col space-y-1">
-                    <p className="text-sm font-medium leading-none">
-                      {user.name}
-                    </p>
-                    <p className="text-xs leading-none text-muted-foreground">
-                      {user.email}
-                    </p>
-                  </div>
-                </DropdownMenuLabel>
+                {/* Wrap the DropdownMenuLabel inside DropdownMenuGroup */}
+                <DropdownMenuGroup>
+                  <DropdownMenuLabel className="font-normal">
+                    <div className="flex flex-col space-y-1">
+                      <p className="text-sm font-medium leading-none">
+                        {user.name}
+                      </p>
+                      <p className="text-xs leading-none text-muted-foreground">
+                        {user.email}
+                      </p>
+                    </div>
+                  </DropdownMenuLabel>
+                </DropdownMenuGroup>
+
                 <DropdownMenuSeparator />
+
                 <DropdownMenuGroup>
                   <DropdownMenuItem className="cursor-pointer">
                     <User className="mr-2 size-4" />
                     <span>Profile</span>
                   </DropdownMenuItem>
                 </DropdownMenuGroup>
+
                 <DropdownMenuSeparator />
+
                 <DropdownMenuItem
-                  onClick={logout}
+                  onClick={handleLogout}
                   className="cursor-pointer text-rose-600 focus:text-rose-600"
                 >
                   <LogOut className="mr-2 size-4" />

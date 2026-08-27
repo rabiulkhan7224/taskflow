@@ -11,13 +11,16 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useAuthStore } from "@/store/use-auth-store";
 
 export default function LoginPage() {
   const router = useRouter();
-
+  const login = useAuthStore((state) => state.login);
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
     // Redirect directly to dashboard without complex backend auth
+    login();
+    router.replace("/dashboard");
     router.push("/dashboard");
   };
 

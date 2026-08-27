@@ -10,12 +10,14 @@ import {
   CircleDashed,
   FolderKanban,
   LayoutDashboard,
+  LogOut,
   MoreHorizontal,
   Plus,
   Search,
   Settings2,
   Sparkles,
   TrendingUp,
+  User,
   Users,
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -25,7 +27,16 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Progress } from "@/components/ui/progress";
 import { useTaskStore } from "@/store/use-task-store";
 import { AddTaskSheet } from "./createTaskForm";
-
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { useAuthStore } from "@/store/use-auth-store";
 const currentUser = {
   name: "Alex Rivera",
   email: "alex@agency.com",
@@ -53,7 +64,7 @@ function PriorityBadge({ priority }: { priority: string }) {
 export function TaskFlowDashboard() {
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
   const { tasks } = useTaskStore();
-
+  const { user, logout } = useAuthStore();
   const totalTasksCount = tasks.length;
   const completedTasksCount = tasks.filter((t) => t.status === "done").length;
   const activeProjectsCount = new Set(tasks.map((t) => t.project)).size;
@@ -96,69 +107,7 @@ export function TaskFlowDashboard() {
       {/* Add Task Sheet Component */}
       <AddTaskSheet open={isAddTaskOpen} onOpenChange={setIsAddTaskOpen} />
 
-      <header className="border-b bg-background/95 sticky top-0 z-10 backdrop-blur">
-        <div className="mx-auto flex max-w-[1440px] items-center justify-between px-5 py-4 lg:px-10">
-          <div className="flex items-center gap-8">
-            <Link
-              href="/"
-              className="flex items-center gap-2.5"
-              aria-label="TaskFlow home"
-            >
-              <span className="flex size-9 items-center justify-center rounded-xl bg-primary text-primary-foreground">
-                <Sparkles className="size-4" />
-              </span>
-              <span className="text-lg font-semibold tracking-tight">
-                TaskFlow
-              </span>
-            </Link>
-            <nav
-              className="hidden items-center gap-1 md:flex"
-              aria-label="Primary navigation"
-            >
-              <Button variant="secondary" size="sm" className="gap-2">
-                <LayoutDashboard className="size-4" /> Overview
-              </Button>
-              <Button variant="ghost" size="sm" className="gap-2">
-                <Link href="/board">
-                  <FolderKanban className="size-4" /> Board
-                </Link>
-              </Button>
-              <Button variant="ghost" size="sm" className="gap-2">
-                <Users className="size-4" /> Team
-              </Button>
-            </nav>
-          </div>
-          <div className="flex items-center gap-3">
-            <Button variant="ghost" size="icon" aria-label="Search">
-              <Search className="size-4" />
-            </Button>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="relative"
-              aria-label="Notifications"
-            >
-              <Bell className="size-4" />
-              <span className="absolute right-2 top-2 size-1.5 rounded-full bg-rose-500" />
-            </Button>
-            <div className="hidden h-7 w-px bg-border sm:block" />
-            <div className="flex items-center gap-3">
-              <Avatar className="size-9">
-                <AvatarImage src={currentUser.avatar} alt={currentUser.name} />
-                <AvatarFallback>AR</AvatarFallback>
-              </Avatar>
-              <div className="hidden leading-tight sm:block">
-                <p className="text-sm font-medium">{currentUser.name}</p>
-                <p className="text-xs text-muted-foreground">
-                  {currentUser.role}
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <main className="mx-auto max-w-[1440px] px-5 py-8 lg:px-10 lg:py-10">
+      <div className="mx-auto max-w-[1440px] px-5 py-8 lg:px-10 lg:py-10">
         <div className="mb-8 flex flex-col justify-between gap-5 sm:flex-row sm:items-end">
           <div>
             <p className="mb-2 text-sm font-medium text-muted-foreground">
@@ -381,7 +330,18 @@ export function TaskFlowDashboard() {
             </CardContent>
           </Card>
         </div>
-      </main>
+
+        <div className="flex items-center justify-center p-2">
+          <Button
+            variant="outline"
+            className="bg-primary hover:bg-primary/50 text-primary-foreground "
+          >
+            <Link href="/dashboard/board" className="flex items-center gap-1">
+              Go to Board <ArrowUpRight className=" size-4" />
+            </Link>
+          </Button>
+        </div>
+      </div>
     </div>
   );
 }
