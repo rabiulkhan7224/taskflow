@@ -145,7 +145,7 @@ const TaskflowBoard = () => {
           <div className="w-[140px]">
             <Select
               value={statusFilter}
-              onValueChange={(value) => setPriorityFilter(value ?? "all")}
+              onValueChange={(value) => setStatusFilter(value ?? "all")}
             >
               <SelectTrigger className="w-full">
                 <SelectValue placeholder="Status" />
